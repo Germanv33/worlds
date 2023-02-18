@@ -75,7 +75,7 @@ export const PlanetCamera = () => {
 
   useFrame(() => {
     // camera.current.position.z = y.get();
-
+    console.log(scrollY.get());
     rCmaera.position.z = y.get();
     rCmaera.position.x = x.get();
     // console.log(scrollY.get());
@@ -99,11 +99,12 @@ export function PlanetScene() {
   // const x = useMotionValue(0);
 
   const { scrollY } = useScroll();
-  const paddingTop = useTransform(
-    scrollY,
-    [0, 1450, 1500, 1900],
-    ["0px", "1470px", "1470px", "1500px"]
-  );
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end start"],
+  });
+
+  const top = useTransform(scrollYProgress, [0.2, 1], ["0", "25%"]);
 
   const opacity = useTransform(
     scrollY,
@@ -116,9 +117,9 @@ export function PlanetScene() {
 
   const border_opacity = useTransform(scrollY, [0, 300], [1, 0]);
 
-  const top = useTransform(scrollY, [1550, 1900], ["91%", "85%"], {
-    ease: easeInOut,
-  });
+  // const top = useTransform(scrollY, [1550, 1900], ["91%", "85%"], {
+  //   ease: easeInOut,
+  // });
 
   // const top = useTransform(
   //   scrollY,
@@ -133,82 +134,88 @@ export function PlanetScene() {
 
   return (
     <>
-      <motion.div
-        style={{ paddingTop }}
-        ref={containerRef}
-        className="hero-container"
-      >
-        <div className="hero-canvas">
-          <Canvas>
-            <ambientLight
-              intensity={0.25}
-              position={[0, 0, 50000]}
-              castShadow
-            />
-            <directionalLight position={[0, 0, 58]} castShadow intensity={1} />
-            <StarsBG />
-            <PlanetMesh />
-            {/* <OrbitControls /> */}
-            <PlanetCamera />
-            <HeroText />
-          </Canvas>
-        </div>
-
+      <motion.div ref={containerRef} className="sticky-container">
         <motion.div
-          style={{ opacity, top }}
-          className="content flex ml-auto  items-center flex-col h-full text-white w-[55%]"
+          style={{ top }}
+          className="relative h-full w-full overflow-hidden"
         >
-          <h1 className="inline-flex font-black text-5xl text-center text-white mb-4">
-            HUNTERS PLANET
-          </h1>
+          <div className="hero-canvas">
+            <Canvas>
+              <ambientLight
+                intensity={0.25}
+                position={[0, 0, 50000]}
+                castShadow
+              />
+              <directionalLight
+                position={[0, 0, 58]}
+                castShadow
+                intensity={1}
+              />
 
-          <h2 className="text-3xl text-center">
-            A new era of play2earn.
-            <br /> Explore the world and find the treasure!
-          </h2>
+              <StarsBG />
+              <PlanetMesh />
+              {/* <OrbitControls /> */}
+              <PlanetCamera />
+              <HeroText />
+            </Canvas>
+          </div>
 
-          <input
-            type="email"
-            className="
-          hero-input
-          
-          text-center
-          bg-transparent
-      "
-            id="exampleEmail0"
-            placeholder="enter e-mail"
-          />
-
-          <button>REGISTER</button>
-        </motion.div>
-
-        <motion.div
-          style={{ opacity: border_opacity }}
-          className="mouse-container"
-        >
           <motion.div
-            initial={{ opacity: 0.3 }}
-            animate={{ opacity: 1 }}
-            transition={{
-              duration: 1,
-              repeat: Infinity,
-              repeatType: "reverse",
-            }}
-            className="mouse-wrapper"
-          ></motion.div>
-
-          <motion.span
-            initial={{ opacity: 0.7 }}
-            animate={{ opacity: 1 }}
-            transition={{
-              duration: 1,
-              repeat: Infinity,
-              repeatType: "reverse",
-            }}
+            // style={{ opacity, top }}
+            className="content flex ml-auto items-center flex-col text-white w-[55%]"
           >
-            Scroll down to see the content{" "}
-            <img src={mouse_icon} alt="mouse icon" />
-          </motion.span>
+            <h1 className="inline-flex font-black text-5xl text-center text-white mb-4">
+              HUNTERS PLANET
+            </h1>
+
+            <h2 className="text-3xl text-center">
+              A new era of play2earn.
+              <br /> Explore the world and find the treasure!
+            </h2>
+
+            <input
+              type="email"
+              className="
+            hero-input
+            
+            text-center
+            bg-transparent
+        "
+              id="exampleEmail0"
+              placeholder="enter e-mail"
+            />
+
+            <button>REGISTER</button>
+          </motion.div>
+
+          <motion.div
+            style={{ opacity: border_opacity }}
+            className="mouse-container"
+          >
+            <motion.div
+              initial={{ opacity: 0.3 }}
+              animate={{ opacity: 1 }}
+              transition={{
+                duration: 1,
+                repeat: Infinity,
+                repeatType: "reverse",
+              }}
+              className="mouse-wrapper"
+            ></motion.div>
+
+            <motion.span
+              initial={{ opacity: 0.7 }}
+              animate={{ opacity: 1 }}
+              transition={{
+                duration: 1,
+                repeat: Infinity,
+                repeatType: "reverse",
+              }}
+            >
+              Scroll down to see the content{" "}
+              <img src={mouse_icon} alt="mouse icon" />
+            </motion.span>
+          </motion.div>
         </motion.div>
       </motion.div>
     </>

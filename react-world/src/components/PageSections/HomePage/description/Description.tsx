@@ -27,16 +27,19 @@ import sp15 from "../../../../assets/descriptions/spells/2.webp";
 import sp16 from "../../../../assets/descriptions/spells/3.webp";
 
 export function Description() {
+  const carouselRef = useRef(null);
+
   const [curMap, setCurMap] = useState(1);
   const [curChar, setCurChar] = useState(1);
 
   const { scrollY } = useScroll();
 
-  const opacity = useTransform(
-    scrollY,
-    [0, 1450, 1500, 2500],
-    ["0", "0.8", "0.1", "1"]
-  );
+  const { scrollYProgress } = useScroll({
+    target: carouselRef,
+    offset: ["start end", "end end"],
+  });
+
+  const opacity = useTransform(scrollYProgress, [0, 0.8], ["0", "1"]);
 
   const incr_map = (number: number) => {
     if (number == 3) {
@@ -269,7 +272,15 @@ export function Description() {
 
   return (
     <>
-      <motion.section style={{ opacity }} className="description">
+      <motion.section
+        // initial={{ opacity: 0.1 }}
+        // whileInView={{ opacity: 1 }}
+        // transition={{ duration: 1 }}
+        className="description"
+        // viewport={{ amount: 0.3 }}
+        style={{ opacity }}
+        ref={carouselRef}
+      >
         <MapSlider />
         <CharSlider />
 

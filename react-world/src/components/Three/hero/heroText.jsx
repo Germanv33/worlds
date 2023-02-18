@@ -22,7 +22,8 @@ function debounce(fn, ms) {
 }
 
 export const HeroText = () => {
-  const [matcapTexture] = useMatcapTexture("7B5254_E9DCC7_B19986_C8AC91", 256);
+  const [matcapTexture] = useMatcapTexture("537387_75BBB9_152E5B_0E85E8", 256);
+
   const ref = useRef();
   const ref1 = useRef();
   const ref2 = useRef();
@@ -77,21 +78,25 @@ export const HeroText = () => {
 
     tl.current.to(
       ref1.current.position,
-      { duration: 1, x: -25, y: 31, z: -21 },
+      { duration: 2, x: -25, y: 31, z: -21 },
       0
     );
     tl.current.to(ref1.current.scale, { duration: 1, x: 15, y: 15, z: 0.5 }, 0);
 
     tl.current.to(
       ref2.current.position,
-      { duration: 1, x: -5, y: 0, z: 29 },
+      { duration: 2, x: -7, y: -1, z: 29 },
       0
     );
-    tl.current.to(ref2.current.scale, { duration: 1, x: 2, y: 2, z: 0.5 }, 0);
+    tl.current.to(
+      ref2.current.scale,
+      { duration: 1, x: 1.3, y: 1.3, z: 0.5 },
+      0
+    );
 
     tl.current.to(
       ref.current.position,
-      { duration: 1, x: -60, y: -24, z: 0 },
+      { duration: 2, x: -45, y: -24, z: 0 },
       0
     );
     tl.current.to(ref.current.scale, { duration: 1, x: 15, y: 15, z: 0.5 }, 0);
@@ -102,12 +107,12 @@ export const HeroText = () => {
       <Float rotationIntensity={0.6}>
         <Text3D
           ref={ref1}
-          font={"/fonts/Mountains of Christmas_Bold.json"}
-          // size={(dimensions.width * 1.75) / 1600}
+          font={"/fonts/Jedi_Regular.json"}
+          size={(dimensions.width * 0.75) / 1600}
           height={0.4}
           curveSegments={2}
           bevelEnabled
-          bevelThickness={0.02}
+          bevelThickness={1}
           bevelSize={0.02}
           bevelOffset={0}
           bevelSegments={5}
@@ -120,13 +125,13 @@ export const HeroText = () => {
       <Float rotationIntensity={0.6}>
         <Text3D
           ref={ref}
-          font={"/fonts/Mountains of Christmas_Bold.json"}
-          // size={(dimensions.width * 1.75) / 1600}
+          font={"/fonts/Jedi_Regular.json"}
+          size={(dimensions.width * 0.45) / 1600}
           height={0.4}
           curveSegments={2}
           bevelEnabled
-          bevelThickness={0.02}
-          bevelSize={0.02}
+          bevelThickness={0.9}
+          bevelSize={0.002}
           bevelOffset={0}
           bevelSegments={5}
         >
@@ -138,8 +143,8 @@ export const HeroText = () => {
       <Float>
         <Text3D
           ref={ref2}
-          font={"/fonts/Mountains of Christmas_Bold.json"}
-          // size={(dimensions.width * 1.75) / 1600}
+          font={"/fonts/Jedi_Regular.json"}
+          size={(dimensions.width * 1.25) / 1600}
           height={0.4}
           curveSegments={2}
           bevelEnabled

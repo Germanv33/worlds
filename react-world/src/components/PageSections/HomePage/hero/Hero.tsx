@@ -1,5 +1,6 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
+import { useLocomotiveScroll } from "react-locomotive-scroll";
 import { PlanetScene } from "../../../Three/hero/PlanetScene";
 import "./hero.sass";
 
@@ -38,6 +39,7 @@ export function Hero() {
   //     setHeroMinHeight("0px");
   //   }
   // }, [windowWidth, windowHeight]);
+
   const h = useTransform(
     scrollY,
     [0, 1450, 1500, 1900],
@@ -45,7 +47,7 @@ export function Hero() {
       "calc(100vh + 1500px)",
       "calc(100vh + 1500px)",
       "calc(100vh + 1500px)",
-      "calc(100vh + 1200px)",
+      "calc(100vh + 1000px)",
     ]
   );
 

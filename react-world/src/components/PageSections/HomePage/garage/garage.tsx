@@ -10,6 +10,55 @@ import { MotoMesh } from "../../../Three/garage/models/moto/motoMesh";
 import { CarMesh } from "../../../Three/garage/models/car/carMesh";
 import { ExMesh } from "../../../Three/garage/models/ex/carMesh";
 import { useState } from "react";
+import { Car1Mesh } from "../../../Three/garage/models/car1/carMesh.jsx";
+
+interface LightsI {
+  brightness: number;
+  color: any;
+}
+
+function KeyLight({ brightness, color }: LightsI) {
+  return (
+    <rectAreaLight
+      width={3}
+      height={3}
+      color={color}
+      intensity={brightness}
+      position={[-2, 0, 5]}
+      // lookAt={[-2, 0, 5]}
+      // penumbra={1}
+      castShadow
+    />
+  );
+}
+function FillLight({ brightness, color }: LightsI) {
+  return (
+    <rectAreaLight
+      width={3}
+      height={3}
+      intensity={brightness}
+      color={color}
+      position={[2, 1, 4]}
+      // lookAt={(0, 0, 0)}
+      // penumbra={2}
+      castShadow
+    />
+  );
+}
+
+function RimLight({ brightness, color }: LightsI) {
+  return (
+    <rectAreaLight
+      width={2}
+      height={2}
+      intensity={brightness}
+      color={color}
+      position={[1, 4, -2]}
+      rotation={[0, 180, 0]}
+      castShadow
+    />
+  );
+}
 
 export function Garage() {
   extend({ OrbitControls });
@@ -35,9 +84,13 @@ export function Garage() {
               // color="yellow"
             />
 
+            {/* <KeyLight brightness={5.6} color={"#ffc9f9"} /> */}
+            <FillLight brightness={10.6} color={"#bdefff"} />
+            <RimLight brightness={54} color={"#fff"} />
+
             {/* <JeepMesh /> */}
             {!curTech && <ExMesh />}
-            {curTech && <CarMesh />}
+            {curTech && <Car1Mesh />}
 
             <OrbitControls
               enableZoom={false}
