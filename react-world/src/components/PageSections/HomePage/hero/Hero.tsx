@@ -57,7 +57,7 @@ export function Hero() {
     <motion.section
       id="hero"
       ref={heroRef}
-      style={{ height: h }}
+      style={{ height: "calc(100vh + 1500px)" }}
       className="hero relative "
     >
       {/* top-[-30%] right-[-30%] */}

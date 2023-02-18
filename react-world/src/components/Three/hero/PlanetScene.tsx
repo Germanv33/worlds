@@ -1,6 +1,6 @@
 import { OrbitControls, Stars } from "@react-three/drei";
 import { Canvas, extend, useFrame, useThree } from "@react-three/fiber";
-import { easeInOut, useScroll, useTransform } from "framer-motion";
+import { cubicBezier, easeIn, easeInOut, useScroll, useTransform } from "framer-motion";
 import { motion, circIn } from "framer-motion";
 import { useRef } from "react";
 import THREE, { Mesh } from "three";
@@ -75,7 +75,8 @@ export const PlanetCamera = () => {
 
   useFrame(() => {
     // camera.current.position.z = y.get();
-    console.log(scrollY.get());
+    
+    // console.log(scrollYProgress.get());
     rCmaera.position.z = y.get();
     rCmaera.position.x = x.get();
     // console.log(scrollY.get());
@@ -99,12 +100,17 @@ export function PlanetScene() {
   // const x = useMotionValue(0);
 
   const { scrollY } = useScroll();
+
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end start"],
   });
 
-  const top = useTransform(scrollYProgress, [0.2, 1], ["0", "25%"]);
+  
+
+  const top = useTransform(scrollYProgress, [0.6, 1], ["0", "250px"], { ease: easeInOut});
+  // const scale = useTransform(scrollYProgress, [0, 1], [1, 1.1], { ease: easeInOut});
+
 
   const opacity = useTransform(
     scrollY,
@@ -134,10 +140,13 @@ export function PlanetScene() {
 
   return (
     <>
-      <motion.div ref={containerRef} className="sticky-container">
+      <motion.div  className="sticky-container">
+
         <motion.div
+        transition={{ type: "inertia", velocity: 50 }}
           style={{ top }}
           className="relative h-full w-full overflow-hidden"
+          ref={containerRef}
         >
           <div className="hero-canvas">
             <Canvas>
@@ -146,6 +155,7 @@ export function PlanetScene() {
                 position={[0, 0, 50000]}
                 castShadow
               />
+
               <directionalLight
                 position={[0, 0, 58]}
                 castShadow
@@ -153,7 +163,7 @@ export function PlanetScene() {
               />
 
               <StarsBG />
-              <PlanetMesh />
+              <PlanetMesh containerRef/>
               {/* <OrbitControls /> */}
               <PlanetCamera />
               <HeroText />
@@ -161,7 +171,7 @@ export function PlanetScene() {
           </div>
 
           <motion.div
-            // style={{ opacity, top }}
+            style={{ opacity }}
             className="content flex ml-auto items-center flex-col text-white w-[55%]"
           >
             <h1 className="inline-flex font-black text-5xl text-center text-white mb-4">

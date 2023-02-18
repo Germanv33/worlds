@@ -22,7 +22,7 @@ function debounce(fn, ms) {
 }
 
 export const HeroText = () => {
-  const [matcapTexture] = useMatcapTexture("537387_75BBB9_152E5B_0E85E8", 256);
+  const [matcapTexture] = useMatcapTexture("7B5254_E9DCC7_B19986_C8AC91", 256);
 
   const ref = useRef();
   const ref1 = useRef();
@@ -78,10 +78,10 @@ export const HeroText = () => {
 
     tl.current.to(
       ref1.current.position,
-      { duration: 2, x: -25, y: 31, z: -21 },
+      { duration: 2, x: -55, y: 31, z: -21 },
       0
     );
-    tl.current.to(ref1.current.scale, { duration: 1, x: 15, y: 15, z: 0.5 }, 0);
+    tl.current.to(ref1.current.scale, { duration: 1, x: 25, y: 25, z: 0.5 }, 0);
 
     tl.current.to(
       ref2.current.position,
